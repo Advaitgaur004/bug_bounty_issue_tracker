@@ -18,9 +18,8 @@ function NavBar() {
     return (
         <nav className="bg-gray-800 p-4 shadow-md">
             <div className="max-w-7xl mx-auto flex items-start space-x-3">
-                {/* Logo and Titles */}
-                <img 
-                    src="https://pbs.twimg.com/profile_images/1247951985896120320/Uh_nLgKS_400x400.jpg" 
+                <img
+                    src="https://pbs.twimg.com/profile_images/1247951985896120320/Uh_nLgKS_400x400.jpg"
                     alt="Logo"
                     className="w-10 h-10 rounded-full"
                 />
@@ -58,11 +57,13 @@ function App() {
 
             setIssues(fetchedIssues);
 
-            const uniqueTechStacks = Array.from(new Set(
-                fetchedIssues.flatMap(issue => 
-                    issue.techStack.split(',').map(stack => stack.trim())
+            const uniqueTechStacks = Array.from(
+                new Set(
+                    fetchedIssues.flatMap(issue =>
+                        issue.techStack.split(',').map(stack => stack.trim())
+                    )
                 )
-            ));
+            );
             setTechStacks(['All Tech Stacks', ...uniqueTechStacks]);
         };
 
@@ -70,7 +71,9 @@ function App() {
     }, []);
 
     const filteredIssues = issues.filter(issue => {
-        const matchesTechStack = techStackFilter === 'All Tech Stacks' || issue.techStack.split(',').map(stack => stack.trim()).includes(techStackFilter);
+        const matchesTechStack =
+            techStackFilter === 'All Tech Stacks' ||
+            issue.techStack.split(',').map(stack => stack.trim()).includes(techStackFilter);
         return matchesTechStack;
     });
 
@@ -81,8 +84,8 @@ function App() {
             {/* Open Issues and Tech Stack Filter */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
                 <h2 className="text-2xl font-semibold text-white">Open Issues</h2>
-                
-                {/* Tech Stack Filter on the right side */}
+
+                {/* Tech Stack Filter */}
                 <select
                     value={techStackFilter}
                     onChange={(e) => setTechStackFilter(e.target.value)}
@@ -120,7 +123,7 @@ function App() {
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                                        <a href={issue.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center text-blue-400">
+                                        <a href={issue.ProjectLink} target="_blank" rel="noopener noreferrer" className="flex items-center text-blue-400">
                                             <ExternalLink className="w-4 h-4 mr-1" />
                                             {issue.ProjectLink}
                                         </a>
